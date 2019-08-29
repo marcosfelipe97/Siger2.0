@@ -44,11 +44,11 @@
         @foreach($equipamentos as $equipamentos)
         <tr>
             
-	          <td>{{$equipamentos->eqdescricao}}</td>
+	          <td>{{$equipamentos->descricao}}</td>
             <td>{{$equipamentos->etiqueta}}</td>
             <td>{{$equipamentos->marca}}</td>
             <td>{{$equipamentos->modelo}}</td>
-            <td>{{$equipamentos->codidentificacao}}</td>
+            <td>{{$equipamentos->numero_serie}}</td>
             <td>{{ date( 'd/m/Y' , strtotime($equipamentos->dt_aquisicao))}}</td>
             <td>{{$equipamentos->status}} </td>
             

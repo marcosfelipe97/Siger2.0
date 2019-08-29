@@ -17,11 +17,11 @@ class Equipamentos extends Model
      */
     protected $fillable = [
         'id',
-        'eqdescricao',
+        'descricao',
         'marca',
         'modelo',
         'status',
-        'codidentificacao',
+        'numero_serie',
         'dt_aquisicao',
         'etiqueta',
 

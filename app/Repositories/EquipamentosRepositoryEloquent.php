@@ -23,7 +23,7 @@ class EquipamentosRepositoryEloquent implements EquipamentosRepositoryInterface
     public function  getAll()
     {
         
-        return $this->equipamentos->orderBy('eqdescricao','ASC')->paginate(10);
+        return $this->equipamentos->orderBy('descricao','ASC')->paginate(10);
         
 
     }

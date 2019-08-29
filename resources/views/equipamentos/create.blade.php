@@ -31,8 +31,8 @@
   <form method="post" action="{{ route('equipamentos.store') }}">
           <div class="form-group">
               @csrf
-              <label for="eqdescricao">Nome do Equipamento:</label>
-              <input type="text" class="form-control" name="eqdescricao" value=" {{old('eqdescricao')}}" autofocus />
+              <label for="descricao">Nome do Equipamento:</label>
+              <input type="text" class="form-control" name="descricao" value=" {{old('descricao')}}" autofocus />
             </div>
             <div class="form-group">
             <label for="etiqueta">Etiqueta:</label>
@@ -53,8 +53,8 @@
      
 
 	 <div class="form-group">
- 		<label for="codidentificacao">Número de série do equipamento:</label>
-        	<input type="text" class="form-control" name="codidentificacao" autofocus value="{{old('codidentificacao')}}"/>
+ 		<label for="numero_serie">Número de série do equipamento:</label>
+        	<input type="text" class="form-control" name="numero_serie" autofocus value="{{old('codidentificacao')}}"/>
 	  </div>
 		 <div class="form-group">
 			<label for="dt_aquisicao">Data de aquisição do equipamento:</label>

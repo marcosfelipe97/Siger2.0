@@ -31,15 +31,15 @@
         @method('PATCH')
         @csrf
         <div class="form-group">
-          <label for="eqdescricao">Nome do equipamento:</label>
-          <input type="text" class="form-control" name="eqdescricao" value="{{$equipamentos->eqdescricao}}" />
+          <label for="descricao">Nome do equipamento:</label>
+          <input type="text" class="form-control" name="descricao" value="{{$equipamentos->descricao}}" />
         </div>
         <div class="form-group">
           <label for="etiqueta">Etiqueta</label>
           <input type="text" class="form-control" name="etiqueta" value="{{ $equipamentos->etiqueta}}"/>
         </div>
         <div class="form-group">
-          <label for="etiqueta">Marca do equipamento:</label>
+          <label for="marca">Marca do equipamento:</label>
           <input type="text" class="form-control" name="marca" value="{{ $equipamentos->marca}}"/>
         </div>
         <div class="form-group">
@@ -47,8 +47,8 @@
           <input type="text" class="form-control" name="modelo" value="{{ $equipamentos->modelo }}" />
         </div>
         <div class="form-group">
-          <label for="codidentificacao">Número de série do equipamento:</label>
-          <input type="text" class="form-control" name="codidentificacao" value="{{ $equipamentos->codidentificacao }}" />
+          <label for="numero_serie">Número de série do equipamento:</label>
+          <input type="text" class="form-control" name="numero_serie" value="{{ $equipamentos->numero_serie }}" />
         </div>
          <label for="dt_aquisicao">Data de aquisição do equipamento:</label>
 			{!!

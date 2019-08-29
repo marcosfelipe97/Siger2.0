@@ -59,10 +59,10 @@ class EquipamentosController extends Controller
        
        
         $request->validate([
-             'eqdescricao'          => 'required|string|max:20|unique:equipamentos',
+             'descricao'          => 'required|string|max:20|unique:equipamentos',
              'marca'                => 'required|:max:20',
              'modelo'               => 'required|:max:20',
-             'codidentificacao'     => 'required|unique:equipamentos|max:30',
+             'numero_serie'     => 'required|unique:equipamentos|max:30',
              'dt_aquisicao'         => 'required|date|date_format:Y-m-d|before_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
              'etiqueta'             => 'required|numeric',
             
@@ -76,14 +76,14 @@ class EquipamentosController extends Controller
                 */
 
 
-            'eqdescricao.required' => 'O Tipo de equipamento deve ser preenchido obrigatóriamente',
+            'descricao.required' => 'O Tipo de equipamento deve ser preenchido obrigatóriamente',
+            'descricao.max'=>'É tipo de equipamento deve ter o máximo 20 digitos',
+            'descricao.unique'=>'Não é permitido cadastrar nomes de equipamentos iguais',
             'marca.required'=>'O campo marca deve ser preenchido obrigatóriamente',
-            'modelo.required'=>'O campo modelo deve ser preenchido obrigatóriamente',
-            'codidentificacao.required'=>'O campo de número de série deve ser preenchido obrigatóriamente',
-            'codidentificacao.unique'=>'O campo número de série é único',
-            'codidentificacao.max'=>'Número de série deve ter o máximo de 20 dígitos',
-            'eqdescricao.max'=>'É tipo de equipamento deve ter o máximo 20 digitos',
-            'eqdescricao.unique'=>'Não é permitido cadastrar nomes de equipamentos iguais',
+            'numero_serie.required'=>'O campo de número de série deve ser preenchido obrigatóriamente',
+            'numero_serie.unique'=>'O campo número de série é único',
+            'numero_serie.max'=>'Número de série deve ter o máximo de 20 dígitos',
+            'modelo.required'=>'O campo modelo deve ser preenchido obrigatóriamente',            
             'modelo.max'=>'O modelo do equipamento deve ter máximo 20 dígitos',
             'etiqueta.required'=> "Insira o número de equiqueta para cadastrar o equipamento",
             'etiqueta.numeric'=>'Somente é permitida a inserção de números inteiros no campo etiqueta',
@@ -104,10 +104,10 @@ class EquipamentosController extends Controller
 
 
                 $equipamentos =$this->repo->create([
-                  'eqdescricao'        => $request->get('eqdescricao'),
+                  'descricao'           => $request->get('descricao'),
                   'marca'              => $request->get('marca'),
                   'modelo'             => $request->get('modelo'),
-                  'codidentificacao'   => $request->get('codidentificacao'),
+                  'numero_serie'       => $request->get('numero_serie'),
                   'dt_aquisicao'       => $request->get('dt_aquisicao'),
                   'etiqueta'           => $request->get('etiqueta'),
                   
@@ -180,11 +180,11 @@ class EquipamentosController extends Controller
 
     {
         $request->validate([
-            'eqdescricao'           => 'required|string|max:30',
+            'descricao'             => 'required|string|max:30',
             'marca'                 => 'required|max:30',
             'modelo'                => 'required|max:30',
             'status'                => 'required',
-            'codidentificacao'      => 'required|max:30',
+            'numero_serie'          => 'required|max:30',
             'dt_aquisicao'          => 'required|date',
            
             
@@ -196,13 +196,15 @@ class EquipamentosController extends Controller
                 conformidade com o formulário
             */
 
-            'eqdescricao.required' => 'O Tipo de equipamento deve ser preenchido obrigatóriamente',
+            'descricao.required' => 'O Tipo de equipamento deve ser preenchido obrigatóriamente',
+            'descricao.max'=>'É permitido no máximo 30 digitos',
             'marca.required'=>'O campo marca deve ser preenchido obrigatóriamente',
-            'modelo.required'=>'O campo modelo deve ser preenchido obrigatóriamente',
-            'codidentificacao.required'=>'O campo de número de série deve ser preenchido obrigatóriamente',
-            'codidentificacao.unique'=>'O campo número de série é único',
-            'eqdescricao.max'=>'É permitido no máximo 30 digitos',
             'modelo.max'=>'É permitido no máximo 30 dígitos',
+            'modelo.required'=>'O campo modelo deve ser preenchido obrigatóriamente',
+            'numero_serie.required'=>'O campo de número de série deve ser preenchido obrigatóriamente',
+            'numero_serie.unique'=>'O campo número de série é único',
+            
+            
                    
         ]
         
@@ -214,12 +216,12 @@ class EquipamentosController extends Controller
                 */
              
                 $equipamentos = $this->repo->getById($id);
-                $equipamentos->eqdescricao        = $request->get('eqdescricao');
+                $equipamentos->eqdescricao        = $request->get('descricao');
                 $equipamentos->marca              = $request->get('marca');
                 $equipamentos->modelo             = $request->get('modelo');
                 $equipamentos->status             = $request->get('status');
-                $equipamentos->codidentificacao   = $request->get ('codidentificacao');
-                $equipamentos->dt_aquisicao       = $request->get ('dt_aquisicao');
+                $equipamentos->codidentificacao   = $request->get('numero_serie');
+                $equipamentos->dt_aquisicao       = $request->get('dt_aquisicao');
                 $equipamentos->etiqueta           =$request->get('etiqueta');
                 
                 
