@@ -19,7 +19,7 @@ class Reservas extends Model
      */
     protected $fillable = [
         'id',
-        'fkequipamentos',
+        'equipamentos_id',
         'user_id',
         'dtagendamento',
         'turno'
@@ -40,12 +40,12 @@ class Reservas extends Model
      */
     public function equipamentos()
     {
-        return $this->hasOne(Equipamentos::class, 'id', 'fkequipamentos');
+        return $this->hasOne(Equipamentos::class, 'id', 'equipamentos_id');
     }
 
     public function reservas()
     {
-        return $this->hasOne(Equipamentos::class, 'id', 'fkequipamentos');
+        return $this->hasOne(Equipamentos::class, 'id', 'equipamentos_id');
     }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

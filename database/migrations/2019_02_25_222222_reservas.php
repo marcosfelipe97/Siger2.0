@@ -16,11 +16,11 @@ class Reservas extends Migration
         Schema::create('reservas', function (Blueprint $table) {
        
             $table->increments('id');
-            $table->integer ('fkequipamentos')->unsigned();
-            $table->foreign('fkequipamentos')->references('id')->on('equipamentos')->onDelete('cascade');
+            $table->integer ('equipamentos_id')->unsigned();
+            $table->foreign('equipamentos_id')->references('id')->on('equipamentos')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('turno');
+            $table->time('turno');
             $table->date('dtagendamento');
             $table->timestamps();
           

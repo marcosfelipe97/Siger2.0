@@ -40,7 +40,7 @@
 	      <td width="101" height="40"  align="justify">{{$reservas->user->name}}</td>
            <td width="101" height="40" align="justify">{{$reservas->turno}}</td>
            <td width="101" height="40" align="justify">{{ date( 'd/m/Y' , strtotime($reservas->dtagendamento))}}</td>
-           <td width="101" height="40" align="center">{{$reservas->equipamentos->eqdescricao}} / {{$reservas->equipamentos->marca}}  / {{$reservas->equipamentos->modelo}} </td>
+           <td width="101" height="40" align="center">{{$reservas->equipamentos->descricao}} / {{$reservas->equipamentos->marca}}  / {{$reservas->equipamentos->modelo}} </td>
 
             </tr>
             @endforeach

@@ -39,9 +39,9 @@
          <label for="turno">Turno:</label> 
          {!!
                   Form::select('turno',[
-                                  'Manhã' =>'Manhã',
-                              	  'Tarde' =>'Tarde'  ,
-                                  'Noite' =>'Noite',
+                                  '09:00' =>'09:00',
+                              	  '10:00' =>'10:00'  ,
+                                  '18:00' =>'18:00',
                                 ],
                                ['placeholder' => 'Selecione o turno'], ['class' => 'form-control'],);
          !!}
@@ -57,13 +57,13 @@
           </div>
 	  
           <div class="form-group">
-           <label for="fkequipamentos">Equipamentos:</label>
+           <label for="equipamentos_id">Equipamentos:</label>
 
             {!!
             Form::select(
-                'fkequipamentos',
-                $equipamentos->pluck('eqdescricao','id'),
-                old('fkequipamentos') ?? request()->get('fkequipamentos'),
+                'equipamentos_id',
+                $equipamentos->pluck('descricao','id'),
+                old('equipamentos_id') ?? request()->get('equipamentos_id'),
                 ['placeholder' =>'Selecione o equipamento'  ,   'class' => 'form-control',
                 'required' => 'required'
                 ]
