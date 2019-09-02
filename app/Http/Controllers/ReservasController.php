@@ -78,7 +78,7 @@ class ReservasController extends Controller
         */
         
         $request->validate([
-            'fkequipamentos'          => 'required',
+            'equipamentos_id'          => 'required',
             'dtagendamento'           => 'required|date|date_format:Y-m-d|after_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
             'turno'                   => 'required',
             
@@ -93,7 +93,7 @@ class ReservasController extends Controller
          */
 
 
-            'fkequipamentos.required'=>'Selecione um equipamento para reservar o equipamento',
+            'equipamentos_id.required'=>'Selecione um equipamento para reservar o equipamento',
             'dtagendamento.required'=>'Selecione uma data para reservas o equipamento',
             'turno.required'=>'Selecione o turno desejado para reserva',
             'dtagendamento.after_or_equal' =>'Data inválida'
@@ -110,7 +110,7 @@ class ReservasController extends Controller
                serem guardadas 
         */
         $reservas = $this->repore->create([
-            'fkequipamentos'           => $request->get('fkequipamentos'),
+            'equipamentos_id'           => $request->get('equipamentos_id'),
             'user_id'                  => auth()->user()->id,
             'dtagendamento'            => $request->get('dtagendamento'),
             'turno'                    => $request->get('turno'),
@@ -123,7 +123,7 @@ class ReservasController extends Controller
                selecionado para gravar o status do mesmo  
         */
         
-        $equipamento = $this->repo->getById($request->get('fkequipamentos'));
+        $equipamento = $this->repo->getById($request->get('equipamentos_id'));
         
        
      
@@ -186,7 +186,7 @@ class ReservasController extends Controller
         $reservas =$this->repore->getById($id);
 
         if($reservas){
-            $equipamento = $this->repo->getById($reservas->fkequipamentos);
+            $equipamento = $this->repo->getById($reservas->equipamentos_id);
 
             $equipamento->status = 'Disponível';
             $equipamento->save();

@@ -50,18 +50,15 @@ class Equipamentos extends Model
      */
     public function reservas()
     {
-        return $this->hasOne(Reservas::class,'fkequipamentos', 'id');
+        return $this->hasOne(Reservas::class,'equipamentos_id', 'id');
     }
 
     public function devolucao()
     {
-        return $this->hasOne(Devolucao::class,'fkequipamentos', 'id');
+        return $this->hasOne(Devolucao::class,'equipamentos_id', 'id');
     }
 
-    public function manutencoes()
-    {
-        return $this->hasOne(Manutencoes::class,'fkequipamentos', 'id');
-    }
+   
 
 
    
