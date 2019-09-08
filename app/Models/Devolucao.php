@@ -10,29 +10,25 @@ class Devolucao extends Model
    
     protected $fillable = [
         'id',
-        'fkreservas',
-        'fk_id',
+        'reservas_id',
         'user_id',
         'obs',
-        'datadev',
-        'horadev',
+        'data',
+        'hora',
       ];
     protected $table ='devolucao';
    
    
     public function reservas()
     {
-        return $this->hasOne(Reservas::class, 'id', 'fkreservas');
+        return $this->hasOne(Reservas::class, 'id', 'reservas_id');
     }
     public function equipamentos()
     {
-        return $this->hasOne(Equipamentos::class, 'id', 'fkequipamentos');
+        return $this->hasOne(Equipamentos::class, 'id', 'equipamentos_id');
     }
     
-    public function devolucao()
-    {
-        return $this->hasOne(Devolucao::class,'fkequipamentos', 'id');
-    }
+  
    
     public function user(){
         return $this->BelongsTo(User::class);

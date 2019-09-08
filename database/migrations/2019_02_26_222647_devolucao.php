@@ -16,12 +16,12 @@ class Devolucao extends Migration
         Schema::create('devolucao', function (Blueprint $table) {
             
             $table->increments('id');
-            $table->integer('fkreservas')->unsigned();
-            $table->foreign('fkreservas')->references('id')->on('reservas')->onDelete('cascade');
+            $table->integer('reservas_id')->unsigned();
+            $table->foreign('reservas_id')->references('id')->on('reservas')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->date('datadev');
-            $table->time('horadev');
+            $table->date('data');
+            $table->time('hora');
             $table->text('obs');
             $table->timestamps();
         });

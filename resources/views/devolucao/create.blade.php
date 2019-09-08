@@ -40,28 +40,28 @@
              
         <div class="form-group">
              
-             <label for="fkreservas">Equipamento reservado:</label>
+             <label for="reservas_id">Equipamento reservado:</label>
 
              {!!
             Form::select(
-                'fkreservas',
-                 $equipamentos->pluck('eqdescricao','reservas.id'),
-                old('fkreservas') ?? request()->get('fkreservas'),
+                'reservas_id',
+                 $equipamentos->pluck('descricao','reservas.id'),
+                old('reservas_id') ?? request()->get('reservas_id'),
                 ['placeholder'=>'Selecione o equipamento', 'class' => 'form-control']
             )
         !!}
 
         <div class="form-group">
- 		<label for="horadev">Hora da devolução:</label>
-        	<input type="time"  id="horadev" class="form-control" name="horadev" />
+ 		<label for="hora">Hora da devolução:</label>
+        	<input type="time"  id="hora" class="form-control" name="hora" />
 	  </div>
 
 
                </div>
-	      <label for="datadev">Data da devolucao:</label>
+	      <label for="data">Data da devolucao:</label>
        
               {!!
-				Form::date('datadev', \Carbon\Carbon::now(),['class' => 'form-control']);
+				Form::date('data', \Carbon\Carbon::now(),['class' => 'form-control']);
 
               !!}
           </div>

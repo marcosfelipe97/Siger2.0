@@ -58,10 +58,10 @@
 
 	          <td>{{$devolucoes->user->name}}</td>
             <td>{{$devolucoes->reservas->user->name}}</td>
-            <td>{{$devolucoes->reservas->equipamentos->eqdescricao}} /{{$devolucoes->reservas->equipamentos->marca}} / {{$devolucoes->reservas->equipamentos->codidentificacao}}</td>
-            <td>{{$devolucoes->horadev}}</td>
+            <td>{{$devolucoes->reservas->equipamentos->descricao}} /{{$devolucoes->reservas->equipamentos->marca}} / {{$devolucoes->reservas->equipamentos->numero_serie}}</td>
+            <td>{{$devolucoes->hora}}</td>
             <td>{{ date( 'd/m/Y' , strtotime($devolucoes->reservas->dtagendamento))}}</td>
-            <td>{{ date( 'd/m/Y' , strtotime($devolucoes->datadev))}}</td>
+            <td>{{ date( 'd/m/Y' , strtotime($devolucoes->data))}}</td>
             <td>{{$devolucoes->obs}}</td>
 
 

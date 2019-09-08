@@ -23,8 +23,9 @@ class DevolucaoRepositoryEloquent implements DevolucaoRepositoryInterface
     
     public function  getAll()
       {
-        return $this->devolucao->orderBy('datadev', 'DESC')->has('reservas.equipamentos')->paginate(10);
-      }
+        return $this->devolucao->orderBy('data', 'DESC')->has('reservas.equipamentos')->paginate(10);
+
+            }
       public function  getTodos()
       {
       $this->devolucao->all();     
