@@ -3,7 +3,7 @@
 @section('title', 'SIGER - Sistema Gerenciador de Reservas de Equipamentos')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Equipamentos</h1>
 @stop
 
 @section('content')
@@ -33,11 +33,7 @@
         <div class="form-group">
           <label for="descricao">Nome do equipamento:</label>
           <input type="text" class="form-control" name="descricao" value="{{$equipamentos->descricao}}" />
-        </div>
-        <div class="form-group">
-          <label for="etiqueta">Etiqueta</label>
-          <input type="text" class="form-control" name="etiqueta" value="{{ $equipamentos->etiqueta}}"/>
-        </div>
+       
         <div class="form-group">
           <label for="marca">Marca do equipamento:</label>
           <input type="text" class="form-control" name="marca" value="{{ $equipamentos->marca}}"/>
@@ -48,7 +44,7 @@
         </div>
         <div class="form-group">
           <label for="numero_serie">Número de série do equipamento:</label>
-          <input type="text" class="form-control" name="numero_serie" value="{{ $equipamentos->numero_serie }}" />
+          <input type="text" class="form-control" name="numero_serie" value="{{ $equipamentos->numero_serie }} "/>
         </div>
          <label for="dt_aquisicao">Data de aquisição do equipamento:</label>
 			{!!

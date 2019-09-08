@@ -24,7 +24,7 @@
         <tr>
           
           <td width="101" height="40" align="justify"><b>Solicitante:</b></td>
-          <td width="101" height="40" align="justify"><b>Turno de agendamento:</b></td>
+          <td width="101" height="40" align="justify"><b>Horário de agendamento:</b></td>
           <td width="101" height="40" align="justify"><b>Data de agendamento:</b></td>         
           <td width="101" height="40" align="justify"><b>Equipamento/ Marca/ Modelo:</b></td>    
          
@@ -38,8 +38,8 @@
             <tr>
             
 	      <td width="101" height="40"  align="justify">{{$reservas->user->name}}</td>
-           <td width="101" height="40" align="justify">{{$reservas->turno}}</td>
-           <td width="101" height="40" align="justify">{{ date( 'd/m/Y' , strtotime($reservas->dtagendamento))}}</td>
+           <td width="101" height="40" align="justify">{{$reservas->horario}}</td>
+           <td width="101" height="40" align="justify">{{ date( 'd/m/Y' , strtotime($reservas->dt_agendamento))}}</td>
            <td width="101" height="40" align="center">{{$reservas->equipamentos->descricao}} / {{$reservas->equipamentos->marca}}  / {{$reservas->equipamentos->modelo}} </td>
 
             </tr>

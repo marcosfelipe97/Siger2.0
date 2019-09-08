@@ -20,8 +20,8 @@ class Reservas extends Migration
             $table->foreign('equipamentos_id')->references('id')->on('equipamentos')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->time('turno');
-            $table->date('dtagendamento');
+            $table->time('horario');
+            $table->date('dt_agendamento');
             $table->timestamps();
           
         });

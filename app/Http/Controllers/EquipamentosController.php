@@ -64,7 +64,7 @@ class EquipamentosController extends Controller
              'modelo'               => 'required|:max:20',
              'numero_serie'     => 'required|unique:equipamentos|max:30',
              'dt_aquisicao'         => 'required|date|date_format:Y-m-d|before_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
-             'etiqueta'             => 'required|numeric',
+             'etiqueta'             => 'required|numeric|unique:equipamentos',
             
         ],
         
@@ -185,7 +185,7 @@ class EquipamentosController extends Controller
             'modelo'                => 'required|max:30',
             'status'                => 'required',
             'numero_serie'          => 'required|max:30',
-            'dt_aquisicao'          => 'required|date',
+            'dt_aquisicao'         => 'required|date|date_format:Y-m-d|before_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
            
             
                  
@@ -203,6 +203,7 @@ class EquipamentosController extends Controller
             'modelo.required'=>'O campo modelo deve ser preenchido obrigatóriamente',
             'numero_serie.required'=>'O campo de número de série deve ser preenchido obrigatóriamente',
             'numero_serie.unique'=>'O campo número de série é único',
+            'dt_aquisicao.before_or_equal'=>  'Data inválida, só é possivel cadastrar com datas inferiores a hoje',
             
             
                    
@@ -216,13 +217,13 @@ class EquipamentosController extends Controller
                 */
              
                 $equipamentos = $this->repo->getById($id);
-                $equipamentos->eqdescricao        = $request->get('descricao');
+                $equipamentos->descricao        = $request->get('descricao');
                 $equipamentos->marca              = $request->get('marca');
                 $equipamentos->modelo             = $request->get('modelo');
                 $equipamentos->status             = $request->get('status');
-                $equipamentos->codidentificacao   = $request->get('numero_serie');
+                $equipamentos->numero_serie   = $request->get('numero_serie');
                 $equipamentos->dt_aquisicao       = $request->get('dt_aquisicao');
-                $equipamentos->etiqueta           =$request->get('etiqueta');
+               
                 
                 
                 $equipamentos->save();

@@ -3,7 +3,7 @@
 @section('title', 'SIGER - Sistema Gerenciador de Reservas de Equipamentos')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Equipamentos</h1>
 @stop
 
 @section('content')

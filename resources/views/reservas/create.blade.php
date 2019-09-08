@@ -36,9 +36,9 @@
          
          
           <div class="form-group">
-         <label for="turno">Turno:</label> 
+         <label for="horario">Horário de agendamento:</label> 
          {!!
-                  Form::select('turno',[
+                  Form::select('horario',[
                                   '09:00' =>'09:00',
                               	  '10:00' =>'10:00'  ,
                                   '18:00' =>'18:00',
@@ -49,9 +49,9 @@
           <div class="form-group">
               
              
-              <label for="dtagendamento">Data de agendamento:</label>
+              <label for="dt_agendamento">Data de agendamento:</label>
               {!!
-				Form::date('dtagendamento', \Carbon\Carbon::now(),['class' => 'form-control']);
+				Form::date('dt_agendamento', \Carbon\Carbon::now(),['class' => 'form-control']);
 
               !!}
           </div>

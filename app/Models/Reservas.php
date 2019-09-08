@@ -21,8 +21,8 @@ class Reservas extends Model
         'id',
         'equipamentos_id',
         'user_id',
-        'dtagendamento',
-        'turno'
+        'dt_agendamento',
+        'horario'
 
 
     ];

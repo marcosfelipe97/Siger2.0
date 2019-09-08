@@ -3,7 +3,7 @@
 @section('title', 'SIGER - Sistema Gerenciador de Reservas')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Devoluções de equipamentos</h1>
 @stop
 
 
@@ -53,14 +53,14 @@
 
         <div class="form-group">
  		<label for="hora">Hora da devolução:</label>
-        	<input type="time"  id="hora" class="form-control" name="hora" />
+        	<input type="time"  class="form-control" name="hora" />
 	  </div>
 
 
                </div>
-	      <label for="data">Data da devolucao:</label>
+	      <label for="data">Data da devolução:</label>
        
-              {!!
+        {!!
 				Form::date('data', \Carbon\Carbon::now(),['class' => 'form-control']);
 
               !!}

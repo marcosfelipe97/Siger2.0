@@ -3,7 +3,7 @@
 @section('title', 'SIGER - Sistema Gerenciador de Reservas de Equipamentos')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Devoluções de equipamentos</h1>
 @stop
 
 
@@ -60,7 +60,7 @@
             <td>{{$devolucoes->reservas->user->name}}</td>
             <td>{{$devolucoes->reservas->equipamentos->descricao}} /{{$devolucoes->reservas->equipamentos->marca}} / {{$devolucoes->reservas->equipamentos->numero_serie}}</td>
             <td>{{$devolucoes->hora}}</td>
-            <td>{{ date( 'd/m/Y' , strtotime($devolucoes->reservas->dtagendamento))}}</td>
+            <td>{{ date( 'd/m/Y' , strtotime($devolucoes->reservas->dt_agendamento))}}</td>
             <td>{{ date( 'd/m/Y' , strtotime($devolucoes->data))}}</td>
             <td>{{$devolucoes->obs}}</td>
 
