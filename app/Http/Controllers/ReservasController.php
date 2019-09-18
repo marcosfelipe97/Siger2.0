@@ -86,11 +86,7 @@ class ReservasController extends Controller
     
 
         [
-         /*
-                Este array serve para alertar as informações incorretas para 
-                o usuário e  orientar o que pode ser feito para que a reserva seja 
-                efetuada com sucesso
-         */
+
 
 
             'equipamentos_id.required'=>'Selecione um equipamento para reservar o equipamento',
