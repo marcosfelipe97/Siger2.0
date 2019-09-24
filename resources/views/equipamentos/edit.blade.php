@@ -32,19 +32,19 @@
         @csrf
         <div class="form-group">
           <label for="descricao">Nome do equipamento:</label>
-          <input type="text" class="form-control" name="descricao" placeholder="{{$equipamentos->descricao}}" value="{{old('descricao')}}" />
-       
+          <input type="text" class="form-control" name="descricao"  value="{{ old('descricao', $equipamentos->descricao) }}"/>
+       </div>
         <div class="form-group">
           <label for="marca">Marca do equipamento:</label>
-          <input type="text" class="form-control" name="marca" placeholder="{{ $equipamentos->marca}}" value="{{old('marca')}}"/>
+          <input type="text" class="form-control" name="marca" value="{{ old('marca', $equipamentos->marca) }}"/>
         </div>
         <div class="form-group">
           <label for="modelo">Modelo do equipamento:</label>
-          <input type="text" class="form-control" name="modelo" placeholder="{{ $equipamentos->modelo }}"  value="{{old('modelo')}}"/>
+          <input type="text" class="form-control" name="modelo" value="{{ old('modelo', $equipamentos->modelo) }}"/>
         </div>
         <div class="form-group">
           <label for="numero_serie">Número de série do equipamento:</label>
-          <input type="text" class="form-control" name="numero_serie" placeholder="{{ $equipamentos->numero_serie }}" value="{{old('numero_serie')}}" />
+          <input type="text" class="form-control" name="numero_serie" value="{{ old('numero_serie', $equipamentos->numero_serie) }}"/>
         </div>
          <label for="dt_aquisicao">Data de aquisição do equipamento:</label>
 			{!!
