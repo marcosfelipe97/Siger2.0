@@ -15,15 +15,18 @@
 </style>
 
 
+
   <table class="table table-striped">
   <a href="{{ route('equipamentos.create')}}" class="btn btn-primary">Novo equipamento</a><br><br>
     
     
+    
     <div class="container">
         {!! $equipamentos->render() !!}
+   
     </div>
     
-
+    
    
     <thead>
         <tr>

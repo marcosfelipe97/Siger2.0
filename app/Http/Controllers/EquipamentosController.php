@@ -274,5 +274,10 @@ class EquipamentosController extends Controller
         return $pdf->download('equipamentos.pdf');
 
     }
+
+    public function busca(Request $request)
+    {
+      var_dump($request->equipamentos->descricao);
+    }
    
 }
