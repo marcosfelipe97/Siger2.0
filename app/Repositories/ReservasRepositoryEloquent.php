@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Reservas;
 use App\Models\Equipamentos;
 use App\Repositories\Contracts\ReservasRepositoryInterface;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -12,20 +13,15 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
 
 {
      public  function __construct(Reservas $reservas)
-
     {
         $this->reservas=$reservas;
-
     }
-    
-    
+  
      public function  getAll()
-   {
-        
-        return $this->reservas->orderBy('dt_agendamento', 'DESC')->has('equipamentos')->paginate(5);
-        
+   { 
+        return $this->reservas->orderBy('dt_agendamento', 'DESC')->has('equipamentos')->paginate(10);
+      
    }
-
      public function  getTodos()
    {
       return $this->reservas->all();
@@ -37,22 +33,26 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
 
    }
     
-     public function create(array $attributes)
+      public function create(array $attributes)
      {
 
-        return $this->reservas->create($attributes);
+      
+       return $this->reservas->create($attributes);
+      
+        
      }
-
-    
-     
-     public function delete($id)
+        
+    public function delete($id)
      {
         $this->getById($id)->delete();
         return true;
-
      }
 
-     
+     public function getConsultarReservas()
+     {
+      return $query->where('dt_agendamento', $reservas->dt_agendamento)
+      ->where('equipamentos_id', $reservas->equipamentos_id);
+     }
     
 
         

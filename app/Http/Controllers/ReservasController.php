@@ -8,6 +8,8 @@ use App\Models\Equipamentos;
 use App\Repositories\Contracts\EquipamentosRepositoryInterface;
 use App\Repositories\Contracts\ReservasRepositoryInterface;
 use PDF;
+use DB;
+use Carbon\Carbon;
 
 
 /**
@@ -28,16 +30,9 @@ class ReservasController extends Controller
     {
             $this->repore=$repore;
             $this->repo=$repo;
-    }
-  
-
-   
-   
+    } 
      public function index()
-    {
-
-      
-        
+    {       
         /*Este método serve para exibição da tela de pricipal de reservas,
          onde será exibido por nome em ordem decrescente
 
@@ -58,8 +53,9 @@ class ReservasController extends Controller
           e verifica se o status dos equipamentos para reservas
         
         */
-        $equipamentos=$this->repo->getStatus();
+        
         $reservas=$this->repore->getTodos();
+        $equipamentos=$this->repo->getAll();
         return view('reservas.create')->withEquipamentos($equipamentos);
     }
 
@@ -76,64 +72,66 @@ class ReservasController extends Controller
         /* Este método serve para guardar as reservas, onde passará por um
             array de verificação para certificar se estão corretas as informações
         */
+
+        
         
         $request->validate([
             'equipamentos_id'          => 'required',
             'dt_agendamento'           => 'required|date|date_format:Y-m-d|after_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
-            'horario'                   => 'required',
+            'horario'                   =>'required',
             
         ],
-    
-
-        [
-
-
-
-            'equipamentos_id.required'=>'Selecione um equipamento para reservar o equipamento',
+        [   'equipamentos_id.required'=>'Selecione um equipamento para reservar o equipamento',
             'dt_agendamento.required'=>'Selecione uma data para reservas o equipamento',
             'dt_agendamento.after_or_equal' =>'Data inválida',
             'horario.required'=>'Selecione o turno desejado para reserva',
-           
-        ]
-       
-    
-    
-    
-    );
+        ]);
 
          /* 
                Esta parte do código serve para instanciar a classe reservas
                e usar o metodo create que irá preparar as informações para 
                serem guardadas 
         */
-        $reservas = $this->repore->create([
-            'equipamentos_id'           => $request->get('equipamentos_id'),
-            'user_id'                   => auth()->user()->id,
-            'dt_agendamento'            => $request->get('dt_agendamento'),
-            'horario'                   => $request->get('horario'),
-           
-        ]);
+      
+        $data = DB::table('reservas')
+        ->where([
+                ['equipamentos_id', '=', $request->input('equipamentos_id')],
+                ['horario', '=', $request->input('horario')],
+                ['dt_agendamento','=',$request->input('dt_agendamento')]
+                ])->count();    
+      
+        if($data==0)
+        {           
+           $reservas = $this->repore->create([
+                'equipamentos_id'           => $request->get('equipamentos_id'),
+                'user_id'                   => auth()->user()->id,
+                'dt_agendamento'            => $request->get('dt_agendamento'),
+                'horario'                   => $request->get('horario'),
+               
+            ]);      
+            
+            $equipamentos = $this->repo->getById($request->get('equipamentos_id'));
+            $equipamentos->status = 'Indisponível';
+            $equipamentos->save();
+            alert()->success('Reserva  realizada com sucesso');
+            return redirect('/reservas');    
+        }
+        else
+        {
+            alert()->error('Este equipamento já está reservado neste horário');
+            return redirect('/reservas');
+      }
+                    
         
-          /* 
-               Esta parte do código serve para instanciar a classe equipamento
-               e usar o método find para efetuar a localização do id do equipamento
-               selecionado para gravar o status do mesmo  
-        */
-        
-        $equipamento = $this->repo->getById($request->get('equipamentos_id'));
-        
+
        
+
+    
+       
+        
+                
      
-        
-
-        $equipamento->status = 'Indisponível';
-        $equipamento->save();
-        alert()->success('Reserva  realizada com sucesso');
-        return redirect('/reservas');
-        dd($request->all());
-        
     }
-
     /**
      * Display the specified resource.
      *
@@ -173,37 +171,26 @@ class ReservasController extends Controller
      */
   
      public function destroy($id)
-    {
-        
-        /*
+    {  
+                /*
             Este método serve para excluir a reserva selecionada e 
             efetuar a exclusão da reserva
-        */
+            */
         
         $reservas =$this->repore->getById($id);
-
-        if($reservas){
-            $equipamento = $this->repo->getById($reservas->equipamentos_id);
-
-            $equipamento->status = 'Disponível';
-            $equipamento->save();
-
-        }
+        $equipamentos = $this->repo->getById($reservas->equipamentos_id);
+        $equipamentos->status = 'Disponível';
+        $equipamentos->save();
         $reservas=$this->repore->delete($id);
         alert()->success('Reserva  cancelada com sucesso');
         return redirect('/reservas');
     }
    
     public function generatePDF()
-
     {
-        
         $reservas=$this->repore->getAll();
         $pdf = PDF::loadView('reservas/reservaPDF',['reservas'=> $reservas])->setPaper('a4', 'landscape');
         return $pdf->download('reservas.pdf');
-
     }
-
-
-
 }
+

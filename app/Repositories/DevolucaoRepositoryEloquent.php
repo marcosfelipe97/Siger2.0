@@ -16,37 +16,29 @@ class DevolucaoRepositoryEloquent implements DevolucaoRepositoryInterface
     {
         $this->devolucao=$devolucao;
 
-    }
-
-    
-    
+    }  
     
     public function  getAll()
       {
         return $this->devolucao->orderBy('data', 'DESC')->has('reservas.equipamentos')->paginate(10);
-
-            }
+      }
       public function  getTodos()
       {
       $this->devolucao->all();     
-         }  
-
+      }  
      public function getById($id)
      {
         return  $this->devolucao->find($id);
-
      }
     
      public function create(array $attributes)
      {
-
-        return $this->devolucao->create($attributes);
+           return $this->devolucao->create($attributes);
      }
      public function delete($id)
-     {
+     { 
         $this->getById($id)->delete();
         return true;
-
      }
 
   

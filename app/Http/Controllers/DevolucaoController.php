@@ -12,6 +12,7 @@ use App\Repositories\Contracts\EquipamentosRepositoryInterface;
 use App\Repositories\Contracts\ReservasRepositoryInterface;
 use App\Repositories\Contracts\DevolucaoRepositoryInterface;
 use PDF;
+use DB;
 
 class DevolucaoController extends Controller
 {
@@ -59,27 +60,19 @@ class DevolucaoController extends Controller
     public function store(Request $request)
     {
       
-        //Este método serve para guardar o registro de devolução, onde é passado por um array de validação para certificar que as informações apresentadas estão de acordo com as regras impostas no sistema
-        $request->validate( [
-            'reservas_id'           => 'required',         
-            'obs'                  => 'required|max:190',
-            'data'              => 'required|date|date_format:Y-m-d|after_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
+            $request->validate( [
+            'reservas_id'   => 'required',         
+            'obs'           => 'required|max:190',
+            'data'          => 'required|date|date_format:Y-m-d|after_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
             
         ],
         
-        [
-           //Este array serve para exibir as informações incorretas para que o usuário possa corrigir
-           
-           
+        [   
             'obs.required'=> 'O campo observações deve ser preenchido obrigatóriamente',
             'data.after_or_equal' =>'Data inválida',
-            'reservas_id.required'=> 'Selecione o equipamento a ser devolvido',
-            
-
-        ]
-      
-    );                  
-        //Esta parte do código houve uma instacia da classe Devolução onde está utilizando o método create para gravar as informações fornecidas pelo usuário
+            'reservas_id.required'=> 'Selecione o equipamento a ser devolvido'   
+        ]);                  
+               
             $devolucao = $this->repo->create([
             'reservas_id'           => $request->get('reservas_id'),
             'obs'                   => $request->get('obs'),
@@ -89,7 +82,9 @@ class DevolucaoController extends Controller
            
           ]);
           
-          //Esta parte do código serve para instanciar a classe Equipamentos, onde será usado o método find, para buscar o id do equipamento selecionado para devolução e assim liberar o status para disponível e salva a informação no sistema 
+                
+                
+                            
            $equipamentos = $this->repoeq->getById($devolucao->reservas->equipamentos_id);
            $equipamentos->status='Disponível';
            $equipamentos->save();       

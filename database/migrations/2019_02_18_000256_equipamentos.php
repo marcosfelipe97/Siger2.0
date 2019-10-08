@@ -21,7 +21,7 @@ class Equipamentos extends Migration
             $table->string('modelo');
             $table->string('status')->default('Disponível');
             $table->string('numero_serie')->unique();
-            $table->date('dt_aquisicao')->format('d.m.Y');;
+            $table->date('dt_aquisicao')->format('d.m.Y');
             $table->integer('etiqueta');
             $table->timestamps();
         });
