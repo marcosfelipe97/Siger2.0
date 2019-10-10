@@ -26,11 +26,11 @@
 <div class="uper">
 
   <table class="table table-striped">
-  <a href="{{ route('reservas.create')}}" class="btn btn-primary">Nova Reserva</a> <br><br>
+  <a href="{{ route('reservas.create')}}" class="btn btn-primary">Nova Reserva</a> <br>
    
   <div class="container">
         {!! $reservas->render() !!}
-    </div>
+  </div>
     
    
     <thead>

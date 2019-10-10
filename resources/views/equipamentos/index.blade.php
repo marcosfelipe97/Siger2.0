@@ -17,7 +17,7 @@
 
 
   <table class="table table-striped">
-  <a href="{{ route('equipamentos.create')}}" class="btn btn-primary">Novo equipamento</a><br><br>
+  <a href="{{ route('equipamentos.create')}}" class="btn btn-primary">Novo equipamento</a><br>
     
     
     
