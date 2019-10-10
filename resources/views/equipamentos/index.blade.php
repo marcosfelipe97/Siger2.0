@@ -7,6 +7,16 @@
 @stop
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
    
 <style>
   .uper {
@@ -17,7 +27,8 @@
 
 
   <table class="table table-striped">
-  <a href="{{ route('equipamentos.create')}}" class="btn btn-primary">Novo equipamento</a><br>
+  
+    <a href="{{ route('equipamentos.create')}}" class="btn btn-primary">Novo equipamento</a><br>
     
     
     
@@ -71,7 +82,7 @@
     </tbody>
   </table>
 
-<div>
+</div>
 
 <div align="right">
   <a href="eq-pdf" class="btn btn-primary">Exportar lista para pdf</a> 
