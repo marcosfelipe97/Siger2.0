@@ -64,13 +64,14 @@ class DevolucaoController extends Controller
             'reservas_id'   => 'required',         
             'obs'           => 'required|max:190',
             'data'          => 'required|date|date_format:Y-m-d|after_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
-            
+            'hora'          => 'required',
         ],
         
         [   
             'obs.required'=> 'O campo observações deve ser preenchido obrigatóriamente',
             'data.after_or_equal' =>'Data inválida',
-            'reservas_id.required'=> 'Selecione o equipamento a ser devolvido'   
+            'reservas_id.required'=> 'Selecione o equipamento a ser devolvido',
+            'hora.required' =>'Insira a hora',   
         ]);                  
                
             $devolucao = $this->repo->create([
@@ -81,16 +82,26 @@ class DevolucaoController extends Controller
             'user_id'               => auth()->user()->id,
            
           ]);
+          $data = DB::table('reservas')
+                        ->where([
+                                      ['equipamentos_id', '=', $devolucao->reservas->equipamentos_id ],
+                                      ['is_devolvido', '=', 'false']
+                ])->count();
+            
           
+            
                 
-                
-                            
+           $reservas = $this->repore->getById($devolucao->reservas_id);
+           $reservas->is_devolvido= true;
+           $reservas->save();                
            $equipamentos = $this->repoeq->getById($devolucao->reservas->equipamentos_id);
-           $equipamentos->status='Disponível';
+          // $equipamentos->status='Disponível';
            $equipamentos->save();       
-           $devolucao->save();
+        
            alert()->success('Equipamento devolvido com sucesso');
            return redirect('/devolucao');
+          
+        
        
     }
 
