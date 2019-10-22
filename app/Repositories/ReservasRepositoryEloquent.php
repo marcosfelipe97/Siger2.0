@@ -26,21 +26,20 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
    {
       return $this->reservas->all();
    }
-
-     public function getById($id)
+   public function getReservados()
    {
-        return  $this->reservas->find($id);
-
+      return $this->reservas->where('is_devolvido', false)->get();
    }
     
-      public function create(array $attributes)
-     {
-
-      
-       return $this->reservas->create($attributes);
-      
-        
-     }
+    public function getById($id)
+   {
+      return  $this->reservas->find($id);
+   }
+    
+    public function create(array $attributes)
+   {
+     return $this->reservas->create($attributes);
+   }
         
     public function delete($id)
      {

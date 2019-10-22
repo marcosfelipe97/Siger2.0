@@ -47,7 +47,8 @@ class DevolucaoController extends Controller
     {
         //Este médoto serve para exibir a tela que efetua a ação do registro de devolução nesse caso só irá apresentar uma lista apenas com equipamentos que estiver com o status Indisponível
         $devolucao= $this->repo->getTodos();
-        $equipamentos =$this->repoeq->getIdentifyEquipamentos();
+        $equipamentos =$this->repore->getReservados();
+        // dd($equipamentos);
         return view('devolucao.create')->withEquipamentos($equipamentos);
     }
 
