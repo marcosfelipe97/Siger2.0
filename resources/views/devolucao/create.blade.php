@@ -45,7 +45,7 @@
              {!!
             Form::select(
                 'reservas_id',
-                 $equipamentos->pluck('descricao','reservas.id'),
+                 $equipamentos->pluck('equipamentos.descricao','id'),
                 old('reservas_id') ?? request()->get('reservas_id'),
                 ['placeholder'=>'Selecione o equipamento', 'class' => 'form-control']
             )
