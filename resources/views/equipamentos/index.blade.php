@@ -60,7 +60,8 @@
             
          <td><a href="{{ route('equipamentos.edit',$equipamentos->id)}}" class="btn btn-primary">Editar</a></td>
             <td>
-                <form action="{{ route('equipamentos.destroy', $equipamentos->id)}}" method="post" onclick="return confirm('Tem certeza que deseja cancelar a reserva?')">
+                <form action="{{ route('equipamentos.destroy', $equipamentos->id)}}" 
+                  method="post" onclick="return confirm('Tem certeza que deseja cancelar a remover o equipamento?')">
                   @csrf
                   @method('DELETE')
                   <button class="btn btn-danger" type="submit">Excluir</button>

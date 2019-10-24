@@ -99,8 +99,12 @@ class ReservasController extends Controller
                 ['horario', '=', $request->input('horario')],
                 ['dt_agendamento','=',$request->input('dt_agendamento')]
                 ])->count();    
-      
-        if($data==0)
+            
+           $hoje= \Carbon\Carbon::now()->format('Y-m-d');
+           $horaatual= \Carbon\Carbon::now()->format('H-i-s');
+            
+
+        if($data == 0 || $request->input('dtagendamento')== $hoje && $request->input('horario') < $horaatual )
         {           
            $reservas = $this->repore->create([
                 'equipamentos_id'           => $request->get('equipamentos_id'),
@@ -118,7 +122,7 @@ class ReservasController extends Controller
         }
         else
         {
-            alert()->error('Este equipamento já está reservado neste horário');
+            alert()->error('Este equipamento não pôde ser reservado nesta  data ou horário');
             return redirect('/reservas');
       }
                     

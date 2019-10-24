@@ -254,7 +254,7 @@ class EquipamentosController extends Controller
         $equipamentos=$this->repo->getWithStatus($id);
       
         if(!$equipamentos){
-            alert()->error('Equipamento não pode ser removido, pois está em utilização');
+            alert()->error('Equipamento não pôde ser removido, pois está em utilização');
             return redirect('/equipamentos');
         }
 

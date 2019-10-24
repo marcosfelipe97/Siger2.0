@@ -54,7 +54,7 @@
 
 	 <div class="form-group">
  		<label for="numero_serie">Número de série do equipamento:</label>
-        	<input type="text" class="form-control" name="numero_serie" autofocus value="{{old('codidentificacao')}}"/>
+        	<input type="text" class="form-control" name="numero_serie" autofocus value="{{old('numero_serie')}}"/>
 	  </div>
 		 <div class="form-group">
 			<label for="dt_aquisicao">Data de aquisição do equipamento:</label>

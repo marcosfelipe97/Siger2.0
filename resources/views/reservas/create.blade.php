@@ -39,9 +39,10 @@
          <label for="horario">Horário de agendamento:</label> 
          {!!
                   Form::select('horario',[
-                                  '09:00' =>'09:00',
-                              	  '10:00' =>'10:00'  ,
-                                  '18:00' =>'18:00',
+                                  '09:00:00' =>'09:00',
+                              	  '10:00:00' =>'10:00'  ,
+                                  '18:00:00' =>'18:00',
+                                  '00:00:00' =>'00:00',
                                 ],
                                ['placeholder' => 'Selecione o turno'], ['class' => 'form-control'],);
          !!}

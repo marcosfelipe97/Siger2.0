@@ -6,6 +6,7 @@ use App\Models\Reservas;
 use App\Models\Equipamentos;
 use App\Repositories\Contracts\ReservasRepositoryInterface;
 use DB;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -19,7 +20,8 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
   
      public function  getAll()
    { 
-        return $this->reservas->orderBy('dt_agendamento', 'DESC')->has('equipamentos')->paginate(10);
+        return $this->reservas->orderBy('dt_agendamento', 'DESC')
+        ->has('equipamentos')->where('is_devolvido', false)->paginate(10);
       
    }
      public function  getTodos()
@@ -28,7 +30,9 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
    }
    public function getReservados()
    {
-      return $this->reservas->where('is_devolvido', false)->get();
+      $hoje= \Carbon\Carbon::now()->format('Y-m-d');
+      return $this->reservas->where([['is_devolvido', false], ['dt_agendamento','=', $hoje ]])
+      ->get();
    }
     
     public function getById($id)
@@ -47,11 +51,7 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
         return true;
      }
 
-     public function getConsultarReservas()
-     {
-      return $query->where('dt_agendamento', $reservas->dt_agendamento)
-      ->where('equipamentos_id', $reservas->equipamentos_id);
-     }
+    
     
 
         
