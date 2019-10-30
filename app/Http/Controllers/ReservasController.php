@@ -100,11 +100,10 @@ class ReservasController extends Controller
                 ['dt_agendamento','=',$request->input('dt_agendamento')]
                 ])->count();    
             
-           $hoje= \Carbon\Carbon::now()->format('Y-m-d');
-           $horaatual= \Carbon\Carbon::now()->format('H-i-s');
+          
             
 
-        if($data == 0 || $request->input('dtagendamento')== $hoje && $request->input('horario') < $horaatual )
+        if($data == 0)
         {           
            $reservas = $this->repore->create([
                 'equipamentos_id'           => $request->get('equipamentos_id'),

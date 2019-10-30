@@ -26,7 +26,9 @@
    
     </div>
     
-    
+    <form class="navbar-form navbar-left" role="search" action="{!! url('/pesquisar') !!}" method="post" style="margin-left: 25%;margin-bottom: 3%;">
+
+      
    
     <thead>
         <tr>

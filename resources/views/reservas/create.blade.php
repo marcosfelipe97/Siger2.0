@@ -59,9 +59,10 @@
 	  
           <div class="form-group">
            <label for="equipamentos_id">Equipamentos:</label>
+        
 
-            {!!
-            Form::select(
+{{!!
+          Form::select(
                 'equipamentos_id',
                 $equipamentos->pluck('descricao','id'),
                 old('equipamentos_id') ?? request()->get('equipamentos_id'),
