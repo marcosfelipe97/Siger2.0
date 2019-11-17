@@ -21,7 +21,7 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
      public function  getAll()
    { 
         return $this->reservas->orderBy('dt_agendamento', 'DESC')
-        ->has('equipamentos')->where('is_devolvido', false)->paginate(10);
+        ->has('equipamentos')->paginate(10);
       
    }
      public function  getTodos()

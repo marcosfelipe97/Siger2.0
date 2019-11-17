@@ -48,7 +48,6 @@ class DevolucaoController extends Controller
         //Este médoto serve para exibir a tela que efetua a ação do registro de devolução nesse caso só irá apresentar uma lista apenas com equipamentos que estiver com o status Indisponível
         $devolucao= $this->repo->getTodos();
         $equipamentos =$this->repore->getReservados();
-        // dd($equipamentos);
         return view('devolucao.create')->withEquipamentos($equipamentos);
     }
 
@@ -83,27 +82,12 @@ class DevolucaoController extends Controller
             'user_id'               => auth()->user()->id,
            
           ]);
-          $data = DB::table('reservas')
-                        ->where([
-                                      ['equipamentos_id', '=', $devolucao->reservas->equipamentos_id ],
-                                      ['is_devolvido', '=', 'false']
-                ])->count();
-            
-          
-                
-              
-              
+       
+                  
+                          
 
-                if($data==0)
-                {
-                   
-                    $equipamentos = $this->repoeq->getById($devolucao->reservas->equipamentos_id);
-                    $equipamentos->status='Disponível';
-                    $equipamentos->save();
-                    alert()->success('Equipamento devolvido com sucesso');
-                    return redirect('/devolucao');
-                }
-
+             
+                  
                 $reservas = $this->repore->getById($devolucao->reservas_id);
                 $reservas->is_devolvido= true;
                 $reservas->save(); 

@@ -61,7 +61,7 @@
            <label for="equipamentos_id">Equipamentos:</label>
         
 
-{{!!
+{!!
           Form::select(
                 'equipamentos_id',
                 $equipamentos->pluck('descricao','id'),

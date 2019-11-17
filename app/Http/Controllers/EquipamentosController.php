@@ -248,8 +248,7 @@ class EquipamentosController extends Controller
      */
         
 
-        
-        //$equipamentos = Equipamentos::::whereStatus('Disponível')->find($id);
+      
        
         $equipamentos=$this->repo->getWithStatus($id);
       
@@ -275,9 +274,6 @@ class EquipamentosController extends Controller
 
     }
 
-    public function busca(Request $request)
-    {
-      var_dump($request->equipamentos->descricao);
-    }
+   
    
 }
