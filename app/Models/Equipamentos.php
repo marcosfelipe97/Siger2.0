@@ -59,6 +59,7 @@ class Equipamentos extends Model
     }
 
    
+   
 
 
    

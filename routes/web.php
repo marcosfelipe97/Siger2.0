@@ -19,6 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->group(function () {
 Route::resource('/equipamentos', 'EquipamentosController');
+Route::post('/equipamentos/busca', 'EquipamentosController@busca');
 Route::resource('/reservas', 'ReservasController');
 Route::get('/home', 'HomeController@index');
 Route::get('user/password', 'UserController@password');

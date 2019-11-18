@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Equipamentos;
+use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\EquipamentosRepositoryInterface;
 use PDF;
 
@@ -274,6 +275,12 @@ class EquipamentosController extends Controller
 
     }
 
+    public function busca (Request $request)
+    {
+        $search=$request->pesquisar;
+        $equipamentos = Equipamentos::where('descricao', 'LIKE', '%'.$search.'%')->paginate();
+        return view('equipamentos.index', compact('equipamentos','search'));
+    }
    
    
 }

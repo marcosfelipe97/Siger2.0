@@ -17,7 +17,7 @@
 <font size="15"><b>SIG</b>ER- Sistema Gerenciador de Reservas</font>
 <hr>
 
- <center><h1>Equipamentos cadastrados</h1></center>
+ <center><h1>Lista de Equipamentos</h1></center>
 
 <table width="auto" border="1px" align='center'>
     <thead>
@@ -29,7 +29,7 @@
           <td width="101" height="40" align="center"><b>Modelo:</b></td>         
           <td width="101" height="40" align="center"><b>Numero de série:</b></td>    
           <td width="101" height="40" align="center"><b>Data de aquisição:</b></td>
-          <td width="101" height="40" align="center"><b>Status:</b></td>
+          
          
 	   
           
@@ -45,7 +45,7 @@
                 <td width="101" height="40" align="center">{{$equipamentos->modelo}}</td>
                 <td width="101" height="40" align="center">{{$equipamentos->numero_serie}}</td>
                 <td width="101" height="40" align="center">{{ date( 'd/m/Y' , strtotime($equipamentos->dt_aquisicao))}}</td>
-                <td width="101" height="40" align="center">{{$equipamentos->status}} </td>
+               
 
             </tr>
             @endforeach
