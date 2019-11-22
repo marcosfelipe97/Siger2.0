@@ -147,11 +147,7 @@ body {
 
                         !!}		
 	
-          <div class="form-group">
- 	       
-        	
-	    </div>
-          <button type="submit" class="btn btn-primary">Incluir</button>
+        
           
       </form>
   </div>
