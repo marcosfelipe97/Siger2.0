@@ -90,22 +90,26 @@ body {
 }
 </style>
 
-
+<div class="card uper">
+    <div class="card-header">
+        <div class="topnav">
+            <a class="active" href="{{ route('equipamentos.create')}}">Novo equipamento</a>
+   <a href="eq-pdf">Gerar relatório </a>
+     <div class="search-container">
+     <form action="{{url('/equipamentos/busca')}}" method="post">
+      
+     {{ csrf_field() }}
+      <input type="text" placeholder="Buscar.." name="pesquisar" value="{{old('pesquisar')}}">
+       <button type="submit"><i class="fa fa-search"></i></button>
+     </form>
+   </div>
+ </div>
+    </div>
+</div>
 
   <table class="table table-striped">
    
-      <div class="topnav">
-                   <a class="active" href="{{ route('equipamentos.create')}}">Novo equipamento</a>
-          <a href="eq-pdf">Gerar relatório </a>
-            <div class="search-container">
-            <form action="{{url('/equipamentos/busca')}}" method="post">
-             
-            {{ csrf_field() }}
-             <input type="text" placeholder="Buscar.." name="pesquisar" value="{{old('pesquisar')}}">
-              <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
-          </div>
-        </div>
+      
         
     
     <div class="container">
