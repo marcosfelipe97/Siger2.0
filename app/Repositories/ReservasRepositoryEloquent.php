@@ -31,6 +31,7 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
    public function getReservados()
    {
       $hoje= \Carbon\Carbon::now()->format('Y-m-d');
+   
       return $this->reservas->where([['is_devolvido', false], ['dt_agendamento','=', $hoje ]])
       ->get();
    }
