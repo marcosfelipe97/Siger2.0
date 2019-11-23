@@ -162,6 +162,22 @@ class DevolucaoController extends Controller
         return $pdf->download('devolucao.pdf');
 
     }
+
+    public function busca (Request $request)
+    {
+        $search= date( 'Y-m-d' , strtotime($request->pesquisar));    
+        $devolucao = Devolucao::where('data', 'LIKE', '%'.$search.'%')->count();
+        if($devolucao==0){
+            alert()->error('Não existe equipamentos devolvidos de acordo com a data selecionada');
+            return redirect('/devolucao');
+        }
+        else{
+
+            $devolucao = Devolucao::where('data', 'LIKE', '%'.$search.'%')->paginate();
+            return view('devolucao.index', compact('devolucao','search'));
+
+            }
+    }
    
 }
 
