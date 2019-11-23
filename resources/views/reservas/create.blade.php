@@ -28,7 +28,7 @@
       </div><br />
     @endif
 
-    
+    <! comentario>
     
       
       <form method="post" action="{{ route('reservas.store') }}">
@@ -68,7 +68,7 @@
                 old('equipamentos_id') ?? request()->get('equipamentos_id'),
                 ['placeholder' =>'Selecione o equipamento'  ,   'class' => 'form-control',
                 'required' => 'required'
-                ]
+                
             )
         !!}
 
