@@ -231,14 +231,4 @@ class UserController extends Controller
             }
         }
     }
-
-    public function busca (Request $request)
-    {
-        $search=$request->pesquisar;
-        $user = User::where('name', 'LIKE', '%'.$search.'%')->paginate();
-        return view('user.index', compact('user','search'));
-    }
-
-
-
 }
