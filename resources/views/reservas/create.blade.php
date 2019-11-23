@@ -110,7 +110,7 @@ body {
       </div><br />
     @endif
 
-    
+    <! comentario>
     
       
       <form name="create" method="post" action="{{ route('reservas.store') }}">
@@ -152,7 +152,7 @@ body {
                 old('equipamentos_id') ?? request()->get('equipamentos_id'),
                 ['placeholder' =>'Selecione o equipamento'  ,   'class' => 'form-control',
                 'required' => 'required'
-                ]
+                
             )
         !!}
 
