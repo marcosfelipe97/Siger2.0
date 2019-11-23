@@ -61,14 +61,14 @@
            <label for="equipamentos_id">Equipamentos:</label>
         
 
-{!!
-          Form::select(
+            {!!
+            Form::select(
                 'equipamentos_id',
                 $equipamentos->pluck('descricao','id'),
                 old('equipamentos_id') ?? request()->get('equipamentos_id'),
                 ['placeholder' =>'Selecione o equipamento'  ,   'class' => 'form-control',
-                'required' => 'required']
-                
+                'required' => 'required'
+                ]
             )
         !!}
 
