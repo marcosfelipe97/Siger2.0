@@ -61,8 +61,13 @@
            <label for="equipamentos_id">Equipamentos:</label>
         
 
+<<<<<<< HEAD
             {!!
             Form::select(
+=======
+{!!
+          Form::select(
+>>>>>>> parent of 61d6e5e... Atualização
                 'equipamentos_id',
                 $equipamentos->pluck('descricao','id'),
                 old('equipamentos_id') ?? request()->get('equipamentos_id'),
