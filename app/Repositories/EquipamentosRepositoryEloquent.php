@@ -56,5 +56,6 @@ class EquipamentosRepositoryEloquent implements EquipamentosRepositoryInterface
     }
       
    
+   
 }
 

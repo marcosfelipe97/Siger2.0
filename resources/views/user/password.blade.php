@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="telefone">Telefone:</label>
-                <input type="text" name="telefone" class="form-control" value="{{auth()->user()->telefone}}" />
+                <input type="tel" name="telefone" class="form-control" value="{{auth()->user()->telefone}}" />
             </div>
 
             <div class="form-group">

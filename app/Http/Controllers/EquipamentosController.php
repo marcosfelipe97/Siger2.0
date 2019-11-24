@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Equipamentos;
+use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\Contracts\EquipamentosRepositoryInterface;
 use PDF;
 
@@ -248,13 +249,12 @@ class EquipamentosController extends Controller
      */
         
 
-        
-        //$equipamentos = Equipamentos::::whereStatus('Disponível')->find($id);
+      
        
         $equipamentos=$this->repo->getWithStatus($id);
       
         if(!$equipamentos){
-            alert()->error('Equipamento não pode ser removido, pois está em utilização');
+            alert()->error('Equipamento não pôde ser removido, pois está em utilização');
             return redirect('/equipamentos');
         }
 
@@ -275,9 +275,12 @@ class EquipamentosController extends Controller
 
     }
 
-    public function busca(Request $request)
+    public function busca (Request $request)
     {
-      var_dump($request->equipamentos->descricao);
+        $search=$request->pesquisar;
+        $equipamentos = Equipamentos::where('descricao', 'LIKE', '%'.$search.'%')->paginate();
+        return view('equipamentos.index', compact('equipamentos','search'));
     }
+   
    
 }

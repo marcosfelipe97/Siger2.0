@@ -42,12 +42,12 @@
           
           <div class="form-group">
               <label for="matricula">Matricula :</label>
-              <input type="number" class="form-control" name="matricula" value="{{old('matricula')}}"/>
+              <input type="text" class="form-control" name="matricula" value="{{old('matricula')}}"/>
           </div>
 
           <div class="form-group">
               <label for="telefone">Telefone :</label>
-              <input type="number" class="form-control" name="telefone" data-mask="(00) 0000-0000" data-mask-selectonfocus="true" value="{{old('telefone')}}"/>
+              <input type="tel" class="form-control" name="telefone" value="{{old('telefone')}}"/>
           </div>
           <div class="form-group">
               <label for="password">Senha:</label>

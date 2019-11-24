@@ -47,7 +47,7 @@ class DevolucaoController extends Controller
     {
         //Este médoto serve para exibir a tela que efetua a ação do registro de devolução nesse caso só irá apresentar uma lista apenas com equipamentos que estiver com o status Indisponível
         $devolucao= $this->repo->getTodos();
-        $equipamentos =$this->repoeq->getIdentifyEquipamentos();
+        $equipamentos =$this->repore->getReservados();
         return view('devolucao.create')->withEquipamentos($equipamentos);
     }
 
@@ -64,13 +64,14 @@ class DevolucaoController extends Controller
             'reservas_id'   => 'required',         
             'obs'           => 'required|max:190',
             'data'          => 'required|date|date_format:Y-m-d|after_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
-            
+            'hora'          => 'required',
         ],
         
         [   
             'obs.required'=> 'O campo observações deve ser preenchido obrigatóriamente',
             'data.after_or_equal' =>'Data inválida',
-            'reservas_id.required'=> 'Selecione o equipamento a ser devolvido'   
+            'reservas_id.required'=> 'Selecione o equipamento a ser devolvido',
+            'hora.required' =>'Insira a hora',   
         ]);                  
                
             $devolucao = $this->repo->create([
@@ -81,16 +82,29 @@ class DevolucaoController extends Controller
             'user_id'               => auth()->user()->id,
            
           ]);
+       
+                  
+                          
+
+             
+                  
+                $reservas = $this->repore->getById($devolucao->reservas_id);
+                $reservas->is_devolvido= true;
+                $reservas->save(); 
+                $equipamentos = $this->repoeq->getById($devolucao->reservas->equipamentos_id);
+                $equipamentos->status='Indisponível';
+                $equipamentos->save();
+                alert()->success('Equipamento devolvido com sucesso');
+                return redirect('/devolucao');
+               
+              
+               
+           
+         
+             
+        
           
-                
-                
-                            
-           $equipamentos = $this->repoeq->getById($devolucao->reservas->equipamentos_id);
-           $equipamentos->status='Disponível';
-           $equipamentos->save();       
-           $devolucao->save();
-           alert()->success('Equipamento devolvido com sucesso');
-           return redirect('/devolucao');
+        
        
     }
 
@@ -147,6 +161,22 @@ class DevolucaoController extends Controller
         $pdf = PDF::loadView('devolucao/devolucaoPDF',['devolucao'=> $devolucao])->setPaper('a4', 'landscape');
         return $pdf->download('devolucao.pdf');
 
+    }
+
+    public function busca (Request $request)
+    {
+        $search= date( 'Y-m-d' , strtotime($request->pesquisar));    
+        $devolucao = Devolucao::where('data', 'LIKE', '%'.$search.'%')->count();
+        if($devolucao==0){
+            alert()->error('Não existe equipamentos devolvidos de acordo com a data selecionada');
+            return redirect('/devolucao');
+        }
+        else{
+
+            $devolucao = Devolucao::where('data', 'LIKE', '%'.$search.'%')->paginate();
+            return view('devolucao.index', compact('devolucao','search'));
+
+            }
     }
    
 }

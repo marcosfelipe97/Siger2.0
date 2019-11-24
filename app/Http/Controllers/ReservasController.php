@@ -99,8 +99,11 @@ class ReservasController extends Controller
                 ['horario', '=', $request->input('horario')],
                 ['dt_agendamento','=',$request->input('dt_agendamento')]
                 ])->count();    
-      
-        if($data==0)
+            
+          
+            
+
+        if($data == 0)
         {           
            $reservas = $this->repore->create([
                 'equipamentos_id'           => $request->get('equipamentos_id'),
@@ -118,7 +121,7 @@ class ReservasController extends Controller
         }
         else
         {
-            alert()->error('Este equipamento já está reservado neste horário');
+            alert()->error('Este equipamento não pôde ser reservado nesta  data ou horário');
             return redirect('/reservas');
       }
                     
@@ -191,6 +194,22 @@ class ReservasController extends Controller
         $reservas=$this->repore->getAll();
         $pdf = PDF::loadView('reservas/reservaPDF',['reservas'=> $reservas])->setPaper('a4', 'landscape');
         return $pdf->download('reservas.pdf');
+    }
+
+    public function busca (Request $request)
+    {
+        $search= date( 'Y-m-d' , strtotime($request->pesquisar));    
+        $reservas = Reservas::where('dt_agendamento', 'LIKE', '%'.$search.'%')->count();
+        if($reservas==0){
+            alert()->error('Não existe equipamentos reservados de acordo com a data selecionada');
+            return redirect('/reservas');
+        }
+        else{
+
+            $reservas = Reservas::where('dt_agendamento', 'LIKE', '%'.$search.'%')->paginate();
+            return view('reservas.index', compact('reservas','search'));
+
+            }
     }
 }
 

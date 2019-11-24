@@ -22,6 +22,7 @@ class Reservas extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->time('horario');
             $table->date('dt_agendamento');
+            $table->boolean('is_devolvido')->default(false);
             $table->timestamps();
           
         });
