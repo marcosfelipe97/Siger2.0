@@ -14,18 +14,7 @@ class Reservas extends Migration
     public function up()
     {
 
-        Schema::create('horario', function (Blueprint $table) {
-          
-            $table->increments('id');
-            $table->string('descricao');
-            $table->time('hora');
-            $table->timestamps();
-                        
-        });
-
-
-
-
+       
 
         Schema::create('reservas', function (Blueprint $table) {
        
