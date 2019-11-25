@@ -13,8 +13,10 @@ class Horario extends Model
 
     public function reservas()
     {
-        return $this->hasOne(Reservas::class,'horario_id', 'id');
+        return $this->hasOne(Horario::class,'horario_id', 'id');
     }
+
+   
 
 
 }

@@ -58,6 +58,6 @@ class Reservas extends Model
 
     public function horario()
     {
-        return $this->hasOne(Horario::class,'horario_id', 'id');
+        return $this->BelongsTo(Reservas::class, 'id','horario_id');
     }
 }

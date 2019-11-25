@@ -128,9 +128,9 @@ body {
          
          Form::select(
                 'horario_id',
-                 $horario= \App\Models\Horario::pluck('descricao','id'),
+                 $horario->pluck('descricao','id'),
                 old('horario_id') ?? request()->get('horario_id'),
-                ['placeholder'=>'Selecione o equipamento', 'class' => 'form-control']
+                ['placeholder'=>'Selecione o horário', 'class' => 'form-control']
             )
  
          !!} 

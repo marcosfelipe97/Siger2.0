@@ -57,7 +57,8 @@ class ReservasController extends Controller
         
         $reservas=$this->repore->getTodos();
         $equipamentos=$this->repo->getAll();
-        return view('reservas.create')->withEquipamentos($equipamentos);
+        $horario= Horario::all();
+        return view('reservas.create')->withEquipamentos($equipamentos)->withHorario($horario);
     }
 
 
@@ -109,7 +110,7 @@ class ReservasController extends Controller
            $reservas = $this->repore->create([
                 'equipamentos_id'              => $request->get('equipamentos_id'),
                 'user_id'                      => auth()->user()->id,
-                'dt_agendamento_id'            => $request->get('dt_agendamento'),
+                'dt_agendamento'            => $request->get('dt_agendamento'),
                 'horario_id'                   => $request->get('horario_id'),
                
             ]);      
