@@ -31,9 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        dd($user->hasRole('Administrador'));
-        
+    
        
         return view('home');
     }
