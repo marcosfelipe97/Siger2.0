@@ -7,6 +7,16 @@
 @stop
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
    
 <style>
   .uper {
@@ -108,9 +118,7 @@ body {
 </div>
 
   <table class="table table-striped">
-   
-      
-        
+
     
     <div class="container">
         {!! $equipamentos->render() !!}
@@ -163,6 +171,6 @@ body {
     </tbody>
   </table>
 
-<div>
+</div>
 
 @stop
