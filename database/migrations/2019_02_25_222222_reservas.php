@@ -19,6 +19,7 @@ class Reservas extends Migration
             $table->increments('id');
             $table->string('descricao');
             $table->time('hora');
+            $table->timestamps();
                         
         });
 

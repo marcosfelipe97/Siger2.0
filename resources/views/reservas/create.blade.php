@@ -125,14 +125,15 @@ body {
         
 
          {!!
-          Form::select('horario',[
-                          '09:00:00' =>'09:00',
-                          '10:00:00' =>'10:00'  ,
-                          '18:00:00' =>'18:00',
-                          '00:00:00' =>'00:00',
-                        ],
-                       ['placeholder' => 'Selecione o turno'], ['class' => 'form-control'],);
- !!} 
+         
+         Form::select(
+                'horario_id',
+                 $horario= \App\Models\Horario::pluck('descricao','id'),
+                old('horario_id') ?? request()->get('horario_id'),
+                ['placeholder'=>'Selecione o equipamento', 'class' => 'form-control']
+            )
+ 
+         !!} 
                 
                 
                        
