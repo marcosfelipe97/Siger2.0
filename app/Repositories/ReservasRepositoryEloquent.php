@@ -52,6 +52,12 @@ class ReservasRepositoryEloquent implements ReservasRepositoryInterface
         return true;
      }
 
+        
+    public function getByDate($date)
+     {
+        return $this->reservas->where('dt_agendamento',$date)->paginate();
+     }
+
     
     
 

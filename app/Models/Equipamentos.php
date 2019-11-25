@@ -58,9 +58,7 @@ class Equipamentos extends Model
         return $this->hasOne(Devolucao::class,'equipamentos_id', 'id');
     }
 
-   
-   
-
-
-   
+    public function getJuncaoAttribute(){
+        return "{$this->descricao} - (Etiqueta: {$this->etiqueta})";
+    }
 }

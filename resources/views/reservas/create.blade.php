@@ -161,9 +161,7 @@ body {
          
          Form::select(
                 'equipamentos_id',
-                $equipamentos=\App\Models\Equipamentos::select(
-                  DB::raw('CONCAT(descricao, " - (Etiqueta: ", etiqueta ,")") AS juncao, id'))
-                 ->pluck('juncao', 'id'), 
+                $equipamentos=\App\Models\Equipamentos::get()->pluck('juncao', 'id'), 
                 old('equipamentos_id') ?? request()->get('equipamentos_id'),
                 ['placeholder' =>'Selecione o equipamento'  ,   'class' => 'form-control',
                 'required' => 'required'

@@ -28,6 +28,10 @@ class Reservas extends Model
 
 
     ];
+
+    protected $dates = [
+        'dt_agendamento'
+    ];
     /**
      * @var string
      */
@@ -59,5 +63,9 @@ class Reservas extends Model
     public function horario()
     {
         return $this->BelongsTo(Reservas::class, 'id','horario_id');
+    }
+
+   public function getDevoluionInfoAttribute(){
+        return "{$this->equipamentos->juncao} - {$this->dt_agendamento->toIso8601String()} {$this->user->name}";
     }
 }
