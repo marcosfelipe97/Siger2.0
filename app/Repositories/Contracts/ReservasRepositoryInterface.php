@@ -11,6 +11,7 @@ interface ReservasRepositoryInterface
  public function  getById($id);
  public function  create(array $atributes);
  public function  delete($id);
+ public function  getByDate($date);
 
     
     

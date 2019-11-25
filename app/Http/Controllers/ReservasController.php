@@ -8,6 +8,7 @@ use App\Models\Equipamentos;
 use App\Models\Horario;
 use App\Repositories\Contracts\EquipamentosRepositoryInterface;
 use App\Repositories\Contracts\ReservasRepositoryInterface;
+use App\Repositories\Contracts\HorarioRepositoryInterface;
 use PDF;
 use DB;
 use Carbon\Carbon;
@@ -27,10 +28,11 @@ class ReservasController extends Controller
    
     
 
-    public function __construct(ReservasRepositoryInterface $repore, EquipamentosRepositoryInterface $repo)
+    public function __construct(ReservasRepositoryInterface $repore, EquipamentosRepositoryInterface $repo, HorarioRepositoryInterface $repoho)
     {
             $this->repore=$repore;
             $this->repo=$repo;
+            $this->repo=$repoho;
     } 
      public function index()
     {       
@@ -57,7 +59,7 @@ class ReservasController extends Controller
         
         $reservas=$this->repore->getTodos();
         $equipamentos=$this->repo->getAll();
-        $horario= Horario::all();
+        $horario= $this->repoho->getAll();
         return view('reservas.create')->withEquipamentos($equipamentos)->withHorario($horario);
     }
 
@@ -194,7 +196,7 @@ class ReservasController extends Controller
     public function generatePDF()
     {
         $date = (Carbon::parse(request()->search) ?? Carbon::now())->toDateString();
-        $reservas=$this->repore->reservas->where('dt_agendamento', request()->search)->paginate();
+        $reservas=$this->repore->getByDate(request()->search)->paginate();
         $pdf = PDF::loadView('reservas/reservaPDF',['reservas'=> $reservas])->setPaper('a4', 'landscape');
         return $pdf->download('reservas.pdf');
     }
@@ -202,14 +204,14 @@ class ReservasController extends Controller
     public function busca (Request $request)
     {
         $search= Carbon::parse($request->search)->toDateString();    
-        $reservas = Reservas::where('dt_agendamento', $search)->count();
+        $reservas = $this->repore->getByDate($search)->count();
         if($reservas==0){
             alert()->error('Não existe equipamentos reservados de acordo com a data selecionada');
             return redirect('/reservas');
         }
         else{
 
-            $reservas = Reservas::where('dt_agendamento', $search)->paginate();
+            $reservas = $this->repore->getByDate($search)->paginate();
             return view('reservas.index', compact('reservas','search'));
 
             }

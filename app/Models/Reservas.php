@@ -66,6 +66,9 @@ class Reservas extends Model
     }
 
    public function getDevoluionInfoAttribute(){
-        return "{$this->equipamentos->juncao} - {$this->dt_agendamento->toIso8601String()} {$this->user->name}";
+        return "{$this->equipamentos->juncao} 
+         - Agendado : {$this->dt_agendamento->format('d/m/Y')}
+         - Horário reservado: {$this->horario->descricao}
+         - Reservado por: {$this->user->name}";
     }
 }
