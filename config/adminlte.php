@@ -142,6 +142,7 @@ return [
             'label'       => '',
             'label_color' => 'success',
             'can'         => 'admin'
+            
         ],
        
         'INFORMAÇÕES DA CONTA',
