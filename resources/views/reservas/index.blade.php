@@ -103,7 +103,7 @@ body {
 <div class="card uper">
     <div class="card-header">
         <div class="topnav">
-            <a class="active" href="{{ route('reservas.create')}}">Nova Reserva</a>
+    <a class="active" href="{{ route('reservas.create')}}">Nova Reserva</a>
    <a href="re-pdf">Gerar relatório </a>
      <div class="search-container">
      <form action="{{url('/reservas/busca')}}" method="post">

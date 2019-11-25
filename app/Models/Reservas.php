@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Horario;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -22,7 +23,7 @@ class Reservas extends Model
         'equipamentos_id',
         'user_id',
         'dt_agendamento',
-        'horario',
+        'horario_id',
         'is_devolido'
 
 
@@ -53,5 +54,10 @@ class Reservas extends Model
      */
     public function user(){
         return $this->BelongsTo(User::class);
+    }
+
+    public function horario()
+    {
+        return $this->hasOne(Horario::class,'horario_id', 'id');
     }
 }
