@@ -193,22 +193,23 @@ class ReservasController extends Controller
    
     public function generatePDF()
     {
-        $reservas=$this->repore->getAll();
+        $date = (Carbon::parse(request()->search) ?? Carbon::now())->toDateString();
+        $reservas=$this->repore->reservas->where('dt_agendamento', request()->search)->paginate();
         $pdf = PDF::loadView('reservas/reservaPDF',['reservas'=> $reservas])->setPaper('a4', 'landscape');
         return $pdf->download('reservas.pdf');
     }
 
     public function busca (Request $request)
     {
-        $search= date( 'Y-m-d' , strtotime($request->pesquisar));    
-        $reservas = Reservas::where('dt_agendamento', 'LIKE', '%'.$search.'%')->count();
+        $search= Carbon::parse($request->search)->toDateString();    
+        $reservas = Reservas::where('dt_agendamento', $search)->count();
         if($reservas==0){
             alert()->error('Não existe equipamentos reservados de acordo com a data selecionada');
             return redirect('/reservas');
         }
         else{
 
-            $reservas = Reservas::where('dt_agendamento', 'LIKE', '%'.$search.'%')->paginate();
+            $reservas = Reservas::where('dt_agendamento', $search)->paginate();
             return view('reservas.index', compact('reservas','search'));
 
             }

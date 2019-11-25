@@ -134,7 +134,7 @@ body {
              
             Form::select(
                 'reservas_id',
-                 $equipamentos->pluck('equipamentos.descricao','id'),
+                 $equipamentos->pluck('devoluion_info','id'),
                 old('reservas_id') ?? request()->get('reservas_id'),
                 ['placeholder'=>'Selecione o equipamento', 'class' => 'form-control']
             )
