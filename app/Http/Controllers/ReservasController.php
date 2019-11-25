@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Reservas;
 use App\Models\Equipamentos;
+use App\Models\Horario;
 use App\Repositories\Contracts\EquipamentosRepositoryInterface;
 use App\Repositories\Contracts\ReservasRepositoryInterface;
 use PDF;
@@ -78,13 +79,13 @@ class ReservasController extends Controller
         $request->validate([
             'equipamentos_id'          => 'required',
             'dt_agendamento'           => 'required|date|date_format:Y-m-d|after_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
-            'horario'                   =>'required',
+            'horario_id'                   =>'required',
             
         ],
         [   'equipamentos_id.required'=>'Selecione um equipamento para reservar o equipamento',
             'dt_agendamento.required'=>'Selecione uma data para reservas o equipamento',
             'dt_agendamento.after_or_equal' =>'Data inválida',
-            'horario.required'=>'Selecione o turno desejado para reserva',
+            'horario_id.required'=>'Selecione o horario desejado para reserva',
         ]);
 
          /* 
@@ -96,7 +97,7 @@ class ReservasController extends Controller
         $data = DB::table('reservas')
         ->where([
                 ['equipamentos_id', '=', $request->input('equipamentos_id')],
-                ['horario', '=', $request->input('horario')],
+                ['horario_id', '=', $request->input('horario_id')],
                 ['dt_agendamento','=',$request->input('dt_agendamento')]
                 ])->count();    
             
@@ -106,10 +107,10 @@ class ReservasController extends Controller
         if($data == 0)
         {           
            $reservas = $this->repore->create([
-                'equipamentos_id'           => $request->get('equipamentos_id'),
-                'user_id'                   => auth()->user()->id,
-                'dt_agendamento'            => $request->get('dt_agendamento'),
-                'horario'                   => $request->get('horario'),
+                'equipamentos_id'              => $request->get('equipamentos_id'),
+                'user_id'                      => auth()->user()->id,
+                'dt_agendamento_id'            => $request->get('dt_agendamento'),
+                'horario_id'                   => $request->get('horario_id'),
                
             ]);      
             

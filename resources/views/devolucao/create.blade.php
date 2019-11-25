@@ -130,6 +130,8 @@ body {
              <label for="reservas_id">Equipamento reservado:</label>
 
              {!!
+
+             
             Form::select(
                 'reservas_id',
                  $equipamentos->pluck('equipamentos.descricao','id'),
