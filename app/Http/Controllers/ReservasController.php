@@ -60,7 +60,7 @@ class ReservasController extends Controller
         
         $reservas=$this->repore->getTodos();
         $equipamentos=$this->repo->getAll();
-        $horario= $this->repoho->getAll();
+        $horario= Horario::all();
         return view('reservas.create')->withEquipamentos($equipamentos)->withHorario($horario);
     }
 
