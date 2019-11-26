@@ -42,8 +42,8 @@ class ReservasController extends Controller
          */
 
         $reservas =  $this->repore->getAll();
-        
-        return view('reservas.index', compact('reservas'));
+        $search = Carbon::now();
+        return view('reservas.index', compact('reservas', 'search'));
 
     }
     /**
