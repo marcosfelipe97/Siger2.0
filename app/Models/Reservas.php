@@ -62,7 +62,7 @@ class Reservas extends Model
 
     public function horario()
     {
-        return $this->BelongsTo(Reservas::class, 'id','horario_id');
+        return $this->BelongsTo(Horario::class, 'horario_id');
     }
 
    public function getDevoluionInfoAttribute(){
