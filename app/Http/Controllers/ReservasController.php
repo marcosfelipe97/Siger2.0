@@ -197,7 +197,7 @@ class ReservasController extends Controller
     public function generatePDF(Request $request)
     {
         $date = (Carbon::parse($request->search) ?? Carbon::now())->toDateString();
-        $reservas=$this->repore->getByDate($request->search)->paginate();
+        $reservas=$this->repore->getByDate($request->search);
         $pdf = PDF::loadView('reservas/reservaPDF',['reservas'=> $reservas])->setPaper('a4', 'landscape');
         return $pdf->download('reservas.pdf');
     }
@@ -212,7 +212,7 @@ class ReservasController extends Controller
         }
         else{
 
-            $reservas = $this->repore->getByDate($search)->paginate();
+            $reservas = $this->repore->getByDate($search);
             return view('reservas.index', compact('reservas','search'));
 
             }
