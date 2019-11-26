@@ -150,7 +150,7 @@ body {
             
                   
             <td align="justify">{{$reservas->user->name}}</td>
-            <td align="justify">{{$reservas->horario->descricao}}</td>
+            <td align="justify">{{$reservas->horario->descricao ?? ''}}</td>
             
             <td align="center">{{ date( 'd/m/Y' , strtotime($reservas->dt_agendamento))}}</td>
             <td align="center">{{$reservas->equipamentos->descricao}} / {{$reservas->equipamentos->marca}}  / {{$reservas->equipamentos->modelo}} </td>

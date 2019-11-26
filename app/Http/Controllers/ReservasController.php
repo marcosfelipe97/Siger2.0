@@ -42,7 +42,7 @@ class ReservasController extends Controller
          */
 
         $reservas =  $this->repore->getAll();
-        $search = Carbon::now();
+        $search = Carbon::now()->format('Y-m-d');
         return view('reservas.index', compact('reservas', 'search'));
 
     }
