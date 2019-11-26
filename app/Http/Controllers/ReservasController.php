@@ -60,7 +60,7 @@ class ReservasController extends Controller
         
         $reservas=$this->repore->getTodos();
         $equipamentos=$this->repo->getAll();
-        $horario= $this->repoho->getAll();
+        $horario= Horario::all();
         return view('reservas.create')->withEquipamentos($equipamentos)->withHorario($horario);
     }
 
@@ -121,8 +121,9 @@ class ReservasController extends Controller
             $equipamentos = $this->repo->getById($request->get('equipamentos_id'));
             $equipamentos->status = 'Indisponível';
             $equipamentos->save();
+            $search = $request->search;
             alert()->success('Reserva  realizada com sucesso');
-            return redirect('/reservas');    
+            return redirect('/reservas')->with(compact('search'));
         }
         else
         {
@@ -197,14 +198,14 @@ class ReservasController extends Controller
     public function generatePDF(Request $request)
     {
         $date = (Carbon::parse($request->search) ?? Carbon::now())->toDateString();
-        $reservas=$this->repore->getByDate($request->search)->paginate();
+        $reservas=$this->repore->getByDate($request->search);
         $pdf = PDF::loadView('reservas/reservaPDF',['reservas'=> $reservas])->setPaper('a4', 'landscape');
         return $pdf->download('reservas.pdf');
     }
 
     public function busca (Request $request)
     {
-        $search= Carbon::parse($request->search)->toDateString();    
+        $search= Carbon::parse($request->search)->toDateString();
         $reservas = $this->repore->getByDate($search)->count();
         if($reservas==0){
             alert()->error('Não existe equipamentos reservados de acordo com a data selecionada');
@@ -212,7 +213,7 @@ class ReservasController extends Controller
         }
         else{
 
-            $reservas = $this->repore->getByDate($search)->paginate();
+            $reservas = $this->repore->getByDate($search);
             return view('reservas.index', compact('reservas','search'));
 
             }
