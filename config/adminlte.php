@@ -116,6 +116,7 @@ return [
             'icon'        => 'edit',
             'label'       => '',
             'label_color' => 'success',
+            'can'         => 'admin'
         ],
         [
             'text'        => 'Reservas de equipamentos',
@@ -123,6 +124,7 @@ return [
             'icon'        => 'calendar-minus-o ',
             'label'       => '',
             'label_color' => 'success',
+            
         ],
        
         [
@@ -139,6 +141,8 @@ return [
             'icon'        => 'users',
             'label'       => '',
             'label_color' => 'success',
+            'can'         => 'admin'
+            
         ],
        
         'INFORMAÇÕES DA CONTA',

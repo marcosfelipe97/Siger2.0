@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Horario;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -22,10 +23,14 @@ class Reservas extends Model
         'equipamentos_id',
         'user_id',
         'dt_agendamento',
-        'horario',
+        'horario_id',
         'is_devolido'
 
 
+    ];
+
+    protected $dates = [
+        'dt_agendamento'
     ];
     /**
      * @var string
@@ -53,5 +58,17 @@ class Reservas extends Model
      */
     public function user(){
         return $this->BelongsTo(User::class);
+    }
+
+    public function horario()
+    {
+        return $this->BelongsTo(Horario::class, 'horario_id');
+    }
+
+   public function getDevoluionInfoAttribute(){
+        return "{$this->equipamentos->juncao} 
+         - Agendado : {$this->dt_agendamento->format('d/m/Y')}
+         - Horário reservado: {$this->horario->descricao}
+         - Reservado por: {$this->user->name}";
     }
 }

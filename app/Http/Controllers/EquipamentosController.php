@@ -60,7 +60,7 @@ class EquipamentosController extends Controller
        
        
         $request->validate([
-             'descricao'          => 'required|string|max:20|unique:equipamentos',
+             'descricao'          => 'required|string|max:20',
              'marca'                => 'required|:max:20',
              'modelo'               => 'required|:max:20',
              'numero_serie'     => 'required|unique:equipamentos|max:30',
@@ -79,7 +79,6 @@ class EquipamentosController extends Controller
 
             'descricao.required' => 'O Tipo de equipamento deve ser preenchido obrigatóriamente',
             'descricao.max'=>'É tipo de equipamento deve ter o máximo 20 digitos',
-            'descricao.unique'=>'Não é permitido cadastrar nomes de equipamentos iguais',
             'marca.required'=>'O campo marca deve ser preenchido obrigatóriamente',
             'numero_serie.required'=>'O campo de número de série deve ser preenchido obrigatóriamente',
             'numero_serie.unique'=>'O campo número de série é único',
@@ -270,9 +269,9 @@ class EquipamentosController extends Controller
     {
         
         $equipamentos=$this->repo->getAll();
-        $pdf = PDF::loadView('equipamentos/equipamentosPDF',['equipamentos'=> $equipamentos])->setPaper('a4', 'landscape');
-        return $pdf->download('equipamentos.pdf');
-
+              
+        $pdf = PDF::loadView('equipamentos.index', $equipamentos);
+        return $pdf->stream();
     }
 
     public function busca (Request $request)

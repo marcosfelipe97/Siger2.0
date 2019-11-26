@@ -96,10 +96,7 @@ body {
     <div class="topnav">
       <a class="active" href='javascript:create.submit()'>Reservar</a>
     <a  href="{{ route('reservas.index')}}">Voltar</a>
-   <div class="search-container">
    
-   
-   </div>
   </div>
 <div class="card uper">
   <div class="card-header">
@@ -124,16 +121,24 @@ body {
          
          
           <div class="form-group">
-         <label for="horario">Horário de agendamento:</label> 
+         <label for="horario_id">Horário de agendamento:</label> 
+        
+
          {!!
-                  Form::select('horario',[
-                                  '09:00:00' =>'09:00',
-                              	  '10:00:00' =>'10:00'  ,
-                                  '18:00:00' =>'18:00',
-                                  '00:00:00' =>'00:00',
-                                ],
-                               ['placeholder' => 'Selecione o turno'], ['class' => 'form-control'],);
-         !!}
+         
+         Form::select(
+                'horario_id',
+                 $horario->pluck('descricao','id'),
+                old('horario_id') ?? request()->get('horario_id'),
+                ['placeholder'=>'Selecione o horário', 'class' => 'form-control']
+            )
+ 
+         !!} 
+                
+                
+                       
+                  
+                  
          </div>
           <div class="form-group">
               
@@ -151,14 +156,17 @@ body {
 
 
 {!!
-          Form::select(
+              
+
+         
+         Form::select(
                 'equipamentos_id',
-                $equipamentos->pluck('descricao','id'),
+                $equipamentos=\App\Models\Equipamentos::get()->pluck('juncao', 'id'), 
                 old('equipamentos_id') ?? request()->get('equipamentos_id'),
                 ['placeholder' =>'Selecione o equipamento'  ,   'class' => 'form-control',
                 'required' => 'required'
-                ]
-            )
+                ]);
+
         !!}
 
           </div>

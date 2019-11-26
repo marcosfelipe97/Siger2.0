@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Reservas;
 use App\Models\Equipamentos;
+use App\Models\Horario;
 use App\Repositories\Contracts\EquipamentosRepositoryInterface;
 use App\Repositories\Contracts\ReservasRepositoryInterface;
+use App\Repositories\Contracts\HorarioRepositoryInterface;
 use PDF;
 use DB;
 use Carbon\Carbon;
@@ -26,10 +28,11 @@ class ReservasController extends Controller
    
     
 
-    public function __construct(ReservasRepositoryInterface $repore, EquipamentosRepositoryInterface $repo)
+    public function __construct(ReservasRepositoryInterface $repore, EquipamentosRepositoryInterface $repo, HorarioRepositoryInterface $repoho)
     {
             $this->repore=$repore;
             $this->repo=$repo;
+            $this->repo=$repoho;
     } 
      public function index()
     {       
@@ -39,7 +42,8 @@ class ReservasController extends Controller
          */
 
         $reservas =  $this->repore->getAll();
-        return view('reservas.index', compact('reservas'));
+        $search = Carbon::now()->format('Y-m-d');
+        return view('reservas.index', compact('reservas', 'search'));
 
     }
     /**
@@ -56,7 +60,8 @@ class ReservasController extends Controller
         
         $reservas=$this->repore->getTodos();
         $equipamentos=$this->repo->getAll();
-        return view('reservas.create')->withEquipamentos($equipamentos);
+        $horario= Horario::all();
+        return view('reservas.create')->withEquipamentos($equipamentos)->withHorario($horario);
     }
 
 
@@ -78,13 +83,13 @@ class ReservasController extends Controller
         $request->validate([
             'equipamentos_id'          => 'required',
             'dt_agendamento'           => 'required|date|date_format:Y-m-d|after_or_equal:'.\Carbon\Carbon::now()->format('Y-m-d'),
-            'horario'                   =>'required',
+            'horario_id'                   =>'required',
             
         ],
         [   'equipamentos_id.required'=>'Selecione um equipamento para reservar o equipamento',
             'dt_agendamento.required'=>'Selecione uma data para reservas o equipamento',
             'dt_agendamento.after_or_equal' =>'Data inválida',
-            'horario.required'=>'Selecione o turno desejado para reserva',
+            'horario_id.required'=>'Selecione o horario desejado para reserva',
         ]);
 
          /* 
@@ -96,7 +101,7 @@ class ReservasController extends Controller
         $data = DB::table('reservas')
         ->where([
                 ['equipamentos_id', '=', $request->input('equipamentos_id')],
-                ['horario', '=', $request->input('horario')],
+                ['horario_id', '=', $request->input('horario_id')],
                 ['dt_agendamento','=',$request->input('dt_agendamento')]
                 ])->count();    
             
@@ -106,18 +111,19 @@ class ReservasController extends Controller
         if($data == 0)
         {           
            $reservas = $this->repore->create([
-                'equipamentos_id'           => $request->get('equipamentos_id'),
-                'user_id'                   => auth()->user()->id,
+                'equipamentos_id'              => $request->get('equipamentos_id'),
+                'user_id'                      => auth()->user()->id,
                 'dt_agendamento'            => $request->get('dt_agendamento'),
-                'horario'                   => $request->get('horario'),
+                'horario_id'                   => $request->get('horario_id'),
                
             ]);      
             
             $equipamentos = $this->repo->getById($request->get('equipamentos_id'));
             $equipamentos->status = 'Indisponível';
             $equipamentos->save();
+            $search = $request->search;
             alert()->success('Reserva  realizada com sucesso');
-            return redirect('/reservas');    
+            return redirect('/reservas')->with(compact('search'));
         }
         else
         {
@@ -189,24 +195,25 @@ class ReservasController extends Controller
         return redirect('/reservas');
     }
    
-    public function generatePDF()
+    public function generatePDF(Request $request)
     {
-        $reservas=$this->repore->getAll();
+        $date = (Carbon::parse($request->search) ?? Carbon::now())->toDateString();
+        $reservas=$this->repore->getByDate($request->search);
         $pdf = PDF::loadView('reservas/reservaPDF',['reservas'=> $reservas])->setPaper('a4', 'landscape');
         return $pdf->download('reservas.pdf');
     }
 
     public function busca (Request $request)
     {
-        $search= date( 'Y-m-d' , strtotime($request->pesquisar));    
-        $reservas = Reservas::where('dt_agendamento', 'LIKE', '%'.$search.'%')->count();
+        $search= Carbon::parse($request->search)->toDateString();
+        $reservas = $this->repore->getByDate($search)->count();
         if($reservas==0){
             alert()->error('Não existe equipamentos reservados de acordo com a data selecionada');
             return redirect('/reservas');
         }
         else{
 
-            $reservas = Reservas::where('dt_agendamento', 'LIKE', '%'.$search.'%')->paginate();
+            $reservas = $this->repore->getByDate($search);
             return view('reservas.index', compact('reservas','search'));
 
             }

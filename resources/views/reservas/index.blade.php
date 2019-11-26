@@ -103,13 +103,13 @@ body {
 <div class="card uper">
     <div class="card-header">
         <div class="topnav">
-            <a class="active" href="{{ route('reservas.create')}}">Nova Reserva</a>
-   <a href="re-pdf">Gerar relatório </a>
+    <a class="active" href="{{ route('reservas.create')}}">Nova Reserva</a>
+    <a href="{{ url('re-pdf')}}?search={{$search}}">Gerar relatório </a>
      <div class="search-container">
      <form action="{{url('/reservas/busca')}}" method="post">
       
      {{ csrf_field() }}
-      <input type="date" placeholder="Buscar.." name="pesquisar" value="{{old('pesquisar')}}">
+      <input type="date" name="search">
        <button type="submit"><i class="fa fa-search"></i></button>
      </form>
    </div>
@@ -119,7 +119,7 @@ body {
 
 
 
-</style>
+<div>
 
   <table class="table table-striped">
   
@@ -149,8 +149,9 @@ body {
       
             
                   
-	          <td align="justify">{{$reservas->user->name}}</td>
-            <td align="center">{{$reservas->horario}}</td>
+            <td align="justify">{{$reservas->user->name}}</td>
+            <td align="center">{{$reservas->horario->descricao ?? ''}}</td>
+            
             <td align="center">{{ date( 'd/m/Y' , strtotime($reservas->dt_agendamento))}}</td>
             <td align="center">{{$reservas->equipamentos->descricao}} / {{$reservas->equipamentos->marca}}  / {{$reservas->equipamentos->modelo}} </td>
                              
