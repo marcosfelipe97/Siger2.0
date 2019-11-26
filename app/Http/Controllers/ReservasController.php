@@ -121,8 +121,9 @@ class ReservasController extends Controller
             $equipamentos = $this->repo->getById($request->get('equipamentos_id'));
             $equipamentos->status = 'Indisponível';
             $equipamentos->save();
+            $search = $request->search;
             alert()->success('Reserva  realizada com sucesso');
-            return redirect('/reservas');    
+            return redirect('/reservas')->with(compact('search'));
         }
         else
         {
@@ -204,7 +205,7 @@ class ReservasController extends Controller
 
     public function busca (Request $request)
     {
-        $search= Carbon::parse($request->search)->toDateString();    
+        $search= Carbon::parse($request->search)->toDateString();
         $reservas = $this->repore->getByDate($search)->count();
         if($reservas==0){
             alert()->error('Não existe equipamentos reservados de acordo com a data selecionada');
